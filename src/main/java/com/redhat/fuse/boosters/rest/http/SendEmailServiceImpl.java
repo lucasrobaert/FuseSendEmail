@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 @Service("sendEmailService")
 public class SendEmailServiceImpl implements SendEmailService{
 
-    final String username = "robaertlucas@gmail.com";
-    final String password = "C@ssi0121senha";
+    final String username = "email@email.com.br";
+    final String password = "SenhaDoEmail";
 
 
     @Override
-    public Email postSendEmail(Email request) {
+    public RetornoEnvio postSendEmail(Email request) {
 
         Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -37,23 +37,34 @@ public class SendEmailServiceImpl implements SendEmailService{
           
           try {
 
+            //MessageFormat  msg = new MessageFormat("<h1>This is actual message embedded in HTML tags</h1>");
+            //msg.format("");
+
+
+
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("robaertlucas@gmail.com"));
+            message.setFrom(new InternetAddress("Cassi - "+ request.getSistema() + " <" + username + ">"));
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(request.getPara()));
 			message.setSubject(request.getAssunto());
-			message.setText(request.getConteudo());
+            message.setContent(request.getConteudo(), "text/html; charset=UTF-8");
 
 			Transport.send(message);
 
-			System.out.println("Done");
+            System.out.println("Done");
+            
+            RetornoEnvio retorno = new RetornoEnvio();
+            retorno.setCodigo(0);
+            retorno.setMensagem("Email enviado com sucesso");
+
+            return retorno;
+
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
 
-
-        return null;
+        
     }
 
 

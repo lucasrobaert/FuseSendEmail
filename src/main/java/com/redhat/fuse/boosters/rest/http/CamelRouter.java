@@ -27,14 +27,16 @@ public class CamelRouter extends RouteBuilder {
             .component("servlet")
             .bindingMode(RestBindingMode.json);
         
-        rest("/greetings").description("Greeting to {name}")
-            .get("/{name}").outType(Greetings.class)
-                .route().routeId("greeting-api")
-                .to("direct:greetingsImpl");
+            rest("/email").description("Send Email")
+            .post("/sendEmail").to("direct:sendEmailImpl")
+            .type(Email.class)
+                .outType(RetornoEnvio.class)
+                .route().routeId("sendEmail-api")
+                .to("direct:sendEmailImpl");
 
-        from("direct:greetingsImpl").description("Greetings REST service implementation route")
-            .streamCaching()
-            .to("bean:greetingsService?method=getGreetings");     
+                from("direct:sendEmailImpl").description("Send Email REST service implementation route")
+                .streamCaching()
+                .to("bean:sendEmailService?method=postSendEmail");  
         // @formatter:on
     }
 

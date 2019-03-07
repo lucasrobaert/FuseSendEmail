@@ -14,13 +14,14 @@ public class Email{
     private String enderecoResposta;
     private String identificacaoSistema;
     private String tipoConteudo;
+    private String sistema;
 
 
 
     public Email() {
     }
 
-    public Email(String para, String assunto, String conteudo, String de, String comCopiaPara, String copiaOcultaPara, String responderPara, String enderecoResposta, String identificacaoSistema, String tipoConteudo) {
+    public Email(String para, String assunto, String conteudo, String de, String comCopiaPara, String copiaOcultaPara, String responderPara, String enderecoResposta, String identificacaoSistema, String tipoConteudo, String sistema) {
         this.para = para;
         this.assunto = assunto;
         this.conteudo = conteudo;
@@ -31,6 +32,7 @@ public class Email{
         this.enderecoResposta = enderecoResposta;
         this.identificacaoSistema = identificacaoSistema;
         this.tipoConteudo = tipoConteudo;
+        this.sistema = sistema;
     }
 
     public String getPara() {
@@ -112,5 +114,15 @@ public class Email{
     public void setTipoConteudo(String tipoConteudo) {
         this.tipoConteudo = tipoConteudo;
     }
+
+
+    public String getSistema() {
+        return this.sistema;
+    }
+
+    public void setSistema(String sistema) {
+        this.sistema = sistema;
+    }
+
 
 }
